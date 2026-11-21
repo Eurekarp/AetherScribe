@@ -47,10 +47,19 @@ jobs:
             throw "The package manifest InternalName must be AetherScribe."
           }
 
+          if ($manifest.AssemblyVersion -ne "1.16.2.0") {
+            Write-Host "Release package version: $($manifest.AssemblyVersion)"
+          }
+
           $manifest | Add-Member -NotePropertyName RepoUrl -NotePropertyValue "https://github.com/Eurekarp/AetherScribe" -Force
           $manifest | Add-Member -NotePropertyName DownloadLinkInstall -NotePropertyValue "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip" -Force
           $manifest | Add-Member -NotePropertyName DownloadLinkUpdate -NotePropertyValue "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip" -Force
           $manifest | Add-Member -NotePropertyName DownloadLinkTesting -NotePropertyValue $null -Force
+          $manifest | Add-Member -NotePropertyName TestingAssemblyVersion -NotePropertyValue $null -Force
+          $manifest | Add-Member -NotePropertyName TestingDalamudApiLevel -NotePropertyValue $null -Force
+          $manifest | Add-Member -NotePropertyName TestingChangelog -NotePropertyValue $null -Force
+          $manifest | Add-Member -NotePropertyName IsTestingExclusive -NotePropertyValue $false -Force
+          $manifest | Add-Member -NotePropertyName IconUrl -NotePropertyValue "https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/images/icon.png" -Force
           $manifest | Add-Member -NotePropertyName LastUpdate -NotePropertyValue ([DateTimeOffset]::UtcNow.ToUnixTimeSeconds().ToString()) -Force
           $manifest | Add-Member -NotePropertyName IsHide -NotePropertyValue $false -Force
 
