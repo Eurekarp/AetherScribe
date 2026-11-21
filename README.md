@@ -27,12 +27,4 @@ AetherScribe is a Dalamud plugin for Final Fantasy XIV that helps roleplayers pr
 
 The repository's source and build instructions will be maintained here. Build and release automation will be added alongside the project source.
 
-## Credits and licensing
-
-AetherScribe is based on and extends the [Wordsmith Dalamud plugin by MythicPalette](https://github.com/MythicPalette/Wordsmith-DalamudPlugin).
-
-The upstream repository currently does not display a license file. Rights to redistribute upstream-derived source under MIT therefore need to be established before the complete source is published. See [LICENSE-STATUS.md](LICENSE-STATUS.md) and [UPSTREAM-NOTICE.md](UPSTREAM-NOTICE.md).
-
-The intended MIT licensing applies only to original Jesstify-authored contributions unless permission or an applicable upstream license covers the combined codebase.
-
 AetherScribe is an independent community project and is not affiliated with Square Enix or the Final Fantasy XIV development team.
