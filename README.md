@@ -1,5 +1,7 @@
 # AetherScribe
 
+![AetherScribe icon](images/icon.png)
+
 **The Roleplay Writing Companion for Eorzea**  
 Developed by **Jesstify**.
 
@@ -16,15 +18,28 @@ AetherScribe is a Dalamud plugin for Final Fantasy XIV that helps roleplayers pr
 - Spell checking, dictionaries, and thesaurus support.
 - A dark blue and cyan interface theme.
 
-## Requirements
+## Installation through Dalamud
 
-- Final Fantasy XIV
-- Dalamud
-- .NET 10 SDK for development
-- Dalamud.NET.Sdk 15.0.0 for development
+Custom repository URL:
+
+```
+https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/repo.json
+```
+
+In FFXIV, open `/xlsettings`, go to **Experimental → Custom Plugin Repositories**, paste the URL, and save it. Then open `/xlplugins` and search for **AetherScribe**.
+
+The plugin will appear after the first successful public release. Until a valid Dalamud package is published, its entry stays hidden in the repository feed.
 
 ## Development
 
-The repository's source and build instructions will be maintained here. Build and release automation will be added alongside the project source.
+- .NET 10 SDK
+- Dalamud.NET.Sdk 15.0.0
+- Visual Studio with the .NET desktop development workload
+
+Build locally by running `Build-AetherScribe.bat` or building `AetherScribe.sln` in Release / x64 mode.
+
+## Releases
+
+Push a version tag in the format `v1.16.2.0` to trigger the GitHub Actions workflow. It builds the plugin, packages the Dalamud release ZIP, creates a GitHub Release, and publishes the plugin metadata to `repo.json`.
 
 AetherScribe is an independent community project and is not affiliated with Square Enix or the Final Fantasy XIV development team.
