@@ -30,13 +30,3 @@ https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/repo.json
 4. Open `/xlplugins` and search for **AetherScribe**.
 
 The plugin appears after a public GitHub Release containing an asset named `latest.zip`. The release workflow validates the package and then publishes the entry to the Dalamud feed.
-
-## Development
-
-- .NET 10 SDK
-- Dalamud.NET.Sdk 15.0.0
-- Visual Studio with the .NET desktop development workload
-
-Build locally with `Build-AetherScribe.bat` or open `AetherScribe.sln` and build in Release / x64 mode.
-
-AetherScribe is an independent community project and is not affiliated with Square Enix or the Final Fantasy XIV development team.
