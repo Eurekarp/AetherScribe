@@ -1,0 +1,17 @@
+# Build output
+**/bin/
+**/obj/
+build/
+artifacts/
+*.user
+*.suo
+*.cache
+*.pdb
+*.dll
+*.deps.json
+*.runtimeconfig.json
+
+# Visual Studio
+.vs/
+.idea/
+.vscode/
