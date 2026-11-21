@@ -4,7 +4,7 @@
     "Name": "AetherScribe",
     "Punchline": "The roleplay writing companion for Eorzea.",
     "Description": "A roleplay writing studio for Final Fantasy XIV. Draft and format chat messages, split long posts into game-ready chunks, check spelling, explore synonyms, and send prepared messages to the selected chat channel.",
-    "Changelog": "Initial public distribution setup.",
+    "Changelog": "Initial public release.",
     "IsHide": true,
     "InternalName": "AetherScribe",
     "AssemblyVersion": "1.16.2.0",
@@ -21,7 +21,6 @@
     "DownloadLinkInstall": "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip",
     "DownloadLinkUpdate": "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip",
     "DownloadLinkTesting": null,
-    "IconUrl": "https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/images/icon.png",
     "LastUpdate": "0"
   }
 ]

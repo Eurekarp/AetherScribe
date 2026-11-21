@@ -1,7 +1,5 @@
 # AetherScribe
 
-![AetherScribe icon](images/icon.png)
-
 **The Roleplay Writing Companion for Eorzea**  
 Developed by **Jesstify**.
 
@@ -18,17 +16,20 @@ AetherScribe is a Dalamud plugin for Final Fantasy XIV that helps roleplayers pr
 - Spell checking, dictionaries, and thesaurus support.
 - A dark blue and cyan interface theme.
 
-## Installation through Dalamud
+## Install through Dalamud
 
-Custom repository URL:
+Add this custom repository in Dalamud:
 
 ```
 https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/repo.json
 ```
 
-In FFXIV, open `/xlsettings`, go to **Experimental → Custom Plugin Repositories**, paste the URL, and save it. Then open `/xlplugins` and search for **AetherScribe**.
+1. Open `/xlsettings` in Final Fantasy XIV.
+2. Go to **Experimental → Custom Plugin Repositories**.
+3. Paste the URL above and save.
+4. Open `/xlplugins` and search for **AetherScribe**.
 
-The plugin will appear after the first successful public release. Until a valid Dalamud package is published, its entry stays hidden in the repository feed.
+The plugin appears after a public GitHub Release containing an asset named `latest.zip`. The release workflow validates the package and then publishes the entry to the Dalamud feed.
 
 ## Development
 
@@ -36,10 +37,6 @@ The plugin will appear after the first successful public release. Until a valid 
 - Dalamud.NET.Sdk 15.0.0
 - Visual Studio with the .NET desktop development workload
 
-Build locally by running `Build-AetherScribe.bat` or building `AetherScribe.sln` in Release / x64 mode.
-
-## Releases
-
-Push a version tag in the format `v1.16.2.0` to trigger the GitHub Actions workflow. It builds the plugin, packages the Dalamud release ZIP, creates a GitHub Release, and publishes the plugin metadata to `repo.json`.
+Build locally with `Build-AetherScribe.bat` or open `AetherScribe.sln` and build in Release / x64 mode.
 
 AetherScribe is an independent community project and is not affiliated with Square Enix or the Final Fantasy XIV development team.
