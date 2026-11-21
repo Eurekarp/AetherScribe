@@ -1,6 +1,12 @@
 name: Build and publish AetherScribe
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (for example 1.16.2.0)"
+        required: true
+        type: string
   push:
     tags:
       - "v*.*.*.*"
@@ -14,43 +20,74 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up .NET 10
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
 
+      - name: Determine release version
+        id: version
+        shell: pwsh
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if ($env:EVENT_NAME -eq "workflow_dispatch") {
+            $version = $env:INPUT_VERSION.Trim()
+            if ($version.StartsWith("v")) { $version = $version.Substring(1) }
+          } else {
+            $version = $env:TAG_NAME.TrimStart("v")
+          }
+
+          if ($version -notmatch '^\d+\.\d+\.\d+\.\d+$') {
+            throw "Version must have four numeric components, e.g. 1.16.2.0"
+          }
+
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "tag=v$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Verify source project is present
+        shell: pwsh
+        run: |
+          $solution = ".\AetherScribe-DalamudPlugin\AetherScribe.sln"
+          if (-not (Test-Path $solution)) {
+            throw "The source project is not in the repository yet. Add AetherScribe-DalamudPlugin/AetherScribe.sln before creating a release."
+          }
+
       - name: Restore
         shell: pwsh
-        run: dotnet restore .\AetherScribe.sln
+        run: dotnet restore ".\AetherScribe-DalamudPlugin\AetherScribe.sln"
 
       - name: Build Release x64
         shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          $version = "${{ github.ref_name }}" -replace '^v', ''
-          dotnet build .\AetherScribe.sln --no-restore --configuration Release --property:Platform=x64 "-p:Version=$version" "-p:AssemblyVersion=$version" "-p:FileVersion=$version"
+          dotnet build ".\AetherScribe-DalamudPlugin\AetherScribe.sln" --no-restore --configuration Release --property:Platform=x64 "-p:Version=$env:VERSION" "-p:AssemblyVersion=$env:VERSION" "-p:FileVersion=$env:VERSION"
           if ($LASTEXITCODE -ne 0) { throw "AetherScribe build failed." }
 
       - name: Locate and validate Dalamud package
         id: package
         shell: pwsh
         run: |
-          $package = Get-ChildItem .\build -Recurse -File -Filter "latest.zip" |
+          $package = Get-ChildItem ".\AetherScribe-DalamudPlugin\build" -Recurse -File -Filter "latest.zip" |
             Sort-Object LastWriteTime -Descending |
             Select-Object -First 1
 
           if (-not $package) {
-            throw "DalamudPackager did not create latest.zip. Check the build output and packaging configuration."
+            throw "DalamudPackager did not create latest.zip. Check the SDK packaging configuration."
           }
 
-          Copy-Item $package.FullName .\latest.zip -Force
+          Copy-Item $package.FullName ".\latest.zip" -Force
           $temp = Join-Path $env:RUNNER_TEMP "aetherscribe-package"
           if (Test-Path $temp) { Remove-Item $temp -Recurse -Force }
           New-Item -ItemType Directory -Path $temp | Out-Null
-          Expand-Archive .\latest.zip -DestinationPath $temp -Force
+          Expand-Archive ".\latest.zip" -DestinationPath $temp -Force
 
           $manifest = Get-ChildItem $temp -Recurse -File -Filter "AetherScribe.json" | Select-Object -First 1
           if (-not $manifest) {
@@ -60,9 +97,10 @@ jobs:
           "manifest_path=$($manifest.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v2
         with:
-          name: AetherScribe ${{ github.ref_name }}
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: AetherScribe ${{ steps.version.outputs.tag }}
           generate_release_notes: true
           files: latest.zip
 
@@ -70,6 +108,7 @@ jobs:
         shell: pwsh
         env:
           MANIFEST_PATH: ${{ steps.package.outputs.manifest_path }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
           $manifest = Get-Content $env:MANIFEST_PATH -Raw | ConvertFrom-Json
           $manifest | Add-Member -NotePropertyName RepoUrl -NotePropertyValue "https://github.com/Eurekarp/AetherScribe" -Force
@@ -83,7 +122,7 @@ jobs:
           git fetch origin main
           git checkout -B main origin/main
 
-          $feed = @(Get-Content .\repo.json -Raw | ConvertFrom-Json)
+          $feed = @(Get-Content ".\repo.json" -Raw | ConvertFrom-Json)
           $feed = @($feed | Where-Object { $_.InternalName -ne "AetherScribe" })
           $feed += $manifest
 
@@ -97,5 +136,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add repo.json
-          git commit -m "Publish AetherScribe ${{ github.ref_name }} to Dalamud feed"
+          git commit -m "Publish AetherScribe $env:VERSION to Dalamud feed"
           git push origin main
