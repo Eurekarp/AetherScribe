@@ -1,32 +1,38 @@
 # AetherScribe
 
 **The Roleplay Writing Companion for Eorzea**  
-Created and maintained by **Jesstify**.
+Developed by **Jesstify**.
 
-AetherScribe is a Dalamud plugin for Final Fantasy XIV focused on roleplay writing: Scratch Pads, UTF-8-aware chat chunking, message previews, character counts, spell checking, thesaurus lookup, and user-initiated sequential chat sending.
+AetherScribe is a Dalamud plugin for Final Fantasy XIV that helps roleplayers prepare, refine, and send in-game chat messages.
 
-## Repository status
+## Features
 
-This public repository has been created and is being prepared for the complete source project. The source upload is pending confirmation of redistribution rights for the upstream-derived Wordsmith code.
+- Multiple Scratch Pads for drafting roleplay text.
+- UTF-8-aware message splitting that fills the available chat length before creating a new message.
+- Word-boundary-aware splitting with Unicode and emoji safety.
+- Chat channel selection, aliases, OOC tags, and continuation markers.
+- Character and message counters.
+- Sequential **Send All Messages to Chat** with a configurable delay and cancellation.
+- Spell checking, dictionaries, and thesaurus support.
+- A dark blue and cyan interface theme.
 
-## Features planned for this repository
+## Requirements
 
-- Scratch Pads for drafting longer roleplay messages.
-- Max-length-first message chunking using UTF-8 byte counts, preferring word boundaries and preserving Unicode characters.
-- Chat headers, aliases, OOC tags, and configurable continuation markers.
-- Character count for completed outgoing messages.
-- Explicit **Send All Messages to Chat** action with sequential sending and cancellation of unsent messages.
-- Spell checking, custom dictionaries, and thesaurus lookup.
-- AetherScribe dark blue / cyan UI theme.
+- Final Fantasy XIV
+- Dalamud
+- .NET 10 SDK for development
+- Dalamud.NET.Sdk 15.0.0 for development
 
-## Build
+## Development
 
-The project targets .NET 10 and Dalamud.NET.Sdk 15.0.0. Build instructions will be published with the source once the upstream redistribution permission is resolved.
+The repository's source and build instructions will be maintained here. Build and release automation will be added alongside the project source.
 
-## Licensing status
+## Credits and licensing
 
-AetherScribe is based on the original Wordsmith Dalamud plugin by MythicPalette. The upstream repository's visible root file listing does not include an explicit license file. Public availability does not grant permission to relicense or redistribute the upstream-derived source under MIT.
+AetherScribe is based on and extends the [Wordsmith Dalamud plugin by MythicPalette](https://github.com/MythicPalette/Wordsmith-DalamudPlugin).
 
-The MIT license text prepared for Jesstify-authored contributions does not automatically apply to the upstream-derived code or third-party assets/data. Please see [LICENSE-STATUS.md](LICENSE-STATUS.md) and [UPSTREAM-NOTICE.md](UPSTREAM-NOTICE.md).
+The upstream repository currently does not display a license file. Rights to redistribute upstream-derived source under MIT therefore need to be established before the complete source is published. See [LICENSE-STATUS.md](LICENSE-STATUS.md) and [UPSTREAM-NOTICE.md](UPSTREAM-NOTICE.md).
+
+The intended MIT licensing applies only to original Jesstify-authored contributions unless permission or an applicable upstream license covers the combined codebase.
 
 AetherScribe is an independent community project and is not affiliated with Square Enix or the Final Fantasy XIV development team.
