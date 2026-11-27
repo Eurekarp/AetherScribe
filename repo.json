@@ -10,19 +10,19 @@
       "Utility"
     ],
     "AcceptsFeedback": true,
-    "AssemblyVersion": "1.16.3.0",
+    "AssemblyVersion": "1.17.1.0",
     "InternalName": "AetherScribe",
     "DalamudApiLevel": 15,
     "RepoUrl": "https://github.com/Eurekarp/AetherScribe",
     "DownloadLinkInstall": "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip",
     "DownloadLinkUpdate": "https://github.com/Eurekarp/AetherScribe/releases/latest/download/latest.zip",
     "DownloadLinkTesting": null,
-    "LastUpdate": "1795365815",
-    "IsHide": false,
-    "IsTestingExclusive": false,
     "TestingAssemblyVersion": null,
     "TestingDalamudApiLevel": null,
     "TestingChangelog": null,
-    "IconUrl": "https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/images/icon.png"
+    "IsTestingExclusive": false,
+    "IconUrl": "https://raw.githubusercontent.com/Eurekarp/AetherScribe/main/images/icon.png",
+    "LastUpdate": "1795790197",
+    "IsHide": false
   }
 ]
